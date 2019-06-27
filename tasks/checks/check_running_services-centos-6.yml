@@ -1,0 +1,13 @@
+---
+
+- name: Collect facts about system services (CentOS 6)
+  service_facts:
+  register: services_state
+
+- set_fact:
+    httpd_running: "{{ services_state.ansible_facts.services.httpd.state }}"
+  when: "services_state.ansible_facts.services.httpd.state is defined"
+
+- set_fact:
+    nginx_running: "{{ services_state.ansible_facts.services.nginx.state }}"
+  when: "services_state.ansible_facts.services.nginx.state is defined"

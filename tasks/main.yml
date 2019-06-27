@@ -1,0 +1,18 @@
+---
+
+# Discover running services on the server
+- include: checks/check_running_services-centos-6.yml
+  when: "ansible_distribution == 'CentOS' and ansible_distribution_major_version == '6'"
+- include: checks/check_running_services-centos-7.yml
+  when: "ansible_distribution == 'CentOS' and ansible_distribution_major_version == '7'"
+- include: checks/check_nginx.yml
+- include: checks/check_virtualmin.yml
+# Set logrotate if the is Virtualmin and Apache is running
+- include: configuration/configure_logrotate_virtualmin_httpd.yml
+  when: "httpd_running is defined and 'running' in httpd_running and virtualmin_exists"
+# Set logrotate if there is Virtualmin and Nginx (non-native) is installed
+- include: configuration/configure_logrotate_virtualmin_nginx_non_native.yml
+  when: "nginx_running is defined and 'running' in nginx_running and virtualmin_exists and not nginx_native_exists"
+  # Set logrotate if there is Virtualmin and Nginx (native) is installed
+- include: configuration/configure_logrotate_virtualmin_nginx_native.yml
+  when: "nginx_running is defined and 'running' in nginx_running and virtualmin_exists and nginx_native_exists"

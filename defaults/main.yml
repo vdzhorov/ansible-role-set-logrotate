@@ -1,0 +1,6 @@
+---
+
+virtualmin_location: '/usr/sbin/virtualmin'
+
+logrotate_size: '100M'
+logrotate_rotate: '5'

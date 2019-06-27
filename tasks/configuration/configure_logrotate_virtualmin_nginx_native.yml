@@ -1,0 +1,18 @@
+---
+
+- name: Check hosted sites on server (Virtualmin, native Nginx)
+  shell: "cut -d '=' -f1 /etc/webmin/virtual-server/map.dom"
+  register: running_sites
+
+- name: Define running sites
+  set_fact:
+    sites: "{{ running_sites.stdout_lines }}"
+
+- name: Configure logrotate (Virtualmin, native Nginx)
+  template:
+    src: 'logrotate_nginx_virtualmin.conf.j2'
+    dest: '/etc/logrotate.d/virtualmin.conf'
+    owner: root
+    group: root
+    mode: '644'
+  notify: 'Run logrotate if there are changes in config file (nginx native)'

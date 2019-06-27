@@ -1,0 +1,9 @@
+---
+
+- name: Check if Nginx is native installation
+  stat:
+    path: '/etc/webmin/virtualmin-nginx/config'
+  register: nginx_native
+
+- set_fact:
+    nginx_native_exists: "{{ nginx_native.stat.exists }}"

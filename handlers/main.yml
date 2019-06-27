@@ -1,0 +1,10 @@
+---
+
+- name: Run logrotate if there are changes in config file (httpd)
+  command: 'logrotate -vf /etc/logrotate.d/virtualmin.conf'
+
+- name: Run logrotate if there are changes in config file (nginx non-native)
+  command: 'logrotate -vf /etc/logrotate.d/nginx'
+
+- name: Run logrotate if there are changes in config file (nginx native)
+  command: 'logrotate -vf /etc/logrotate.d/virtualmin.conf'

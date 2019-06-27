@@ -1,0 +1,10 @@
+---
+
+- name: Configure logrotate (Virtualmin, non-native Nginx)
+  template:
+    src: 'logrotate_nginx_native.conf.j2'
+    dest: '/etc/logrotate.d/nginx'
+    owner: root
+    group: root
+    mode: '644'
+  notify: 'Run logrotate if there are changes in config file (nginx non-native)'

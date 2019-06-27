@@ -1,0 +1,6 @@
+---
+
+- name: Check if the server has Virtualmin installed
+  stat:
+    path: "{{ virtualmin_location }}"
+  register: virtualmin_exists

@@ -1,0 +1,11 @@
+{% for site in sites %}/var/log/virtualmin/{{ site }}_access_log /var/log/virtualmin/{{ site }}_error_log {% endfor %} {
+	rotate {{ logrotate_rotate }}
+	size {{ logrotate_size }}
+	daily
+	compress
+	postrotate
+	systemctl restart nginx
+	endscript
+	sharedscripts
+	missingok
+}

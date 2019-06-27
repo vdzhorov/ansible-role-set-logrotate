@@ -1,0 +1,19 @@
+---
+
+- name: Collect facts about system services (CentOS 7)
+  service_facts:
+  register: services_state
+
+- systemd:
+    name: httpd
+  register: httpd
+
+- set_fact:
+    httpd_running: "{{ httpd.status.SubState }}"
+
+- systemd:
+    name: nginx
+  register: nginx
+
+- set_fact:
+    nginx_running: "{{ nginx.status.SubState }}"
